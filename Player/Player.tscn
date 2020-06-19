@@ -1,21 +1,63 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Assets/template_player.png" type="Texture" id=1]
 [ext_resource path="res://Player/Player.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 61.6107, 63.1162 )
+extents = Vector2( 28.1259, 49.541 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 60.5998, 61.6996 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 151.428
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 61.3441, 59.9878 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Walking"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "idle"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 3, 3 )
 texture = ExtResource( 1 )
+vframes = 2
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.485962, 5.18366 )
 shape = SubResource( 1 )
 
 [node name="Gun_Pickup" type="Area2D" parent="."]
@@ -25,5 +67,21 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Gun_Pickup"]
 shape = SubResource( 2 )
+
+[node name="Enemy_Detection" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy_Detection"]
+shape = SubResource( 3 )
+
+[node name="Hurt_Box" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurt_Box"]
+shape = SubResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Walking = SubResource( 5 )
+anims/idle = SubResource( 6 )
 [connection signal="area_entered" from="Gun_Pickup" to="." method="_on_Gun_Pickup_area_entered"]
 [connection signal="area_exited" from="Gun_Pickup" to="." method="_on_Gun_Pickup_area_exited"]

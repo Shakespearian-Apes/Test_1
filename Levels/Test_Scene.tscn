@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Guns/Rifle/rifle_item.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Guns/Guns.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Guns/Pistol/pistol_item.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Enemies/Enemies.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemies/Speed_Enemy/Speed_Enemy.tscn" type="PackedScene" id=8]
 
 [node name="Test_Scene" type="Node2D"]
 script = ExtResource( 4 )
@@ -30,3 +31,6 @@ position = Vector2( 727.529, 487.528 )
 position = Vector2( 837.077, 253.381 )
 
 [node name="Enemies" parent="." instance=ExtResource( 7 )]
+
+[node name="Speed_Enemy" parent="Enemies" instance=ExtResource( 8 )]
+position = Vector2( 925.656, 126.015 )
